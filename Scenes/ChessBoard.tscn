@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dmhfw5g8hdm0r"]
 
-[ext_resource type="Script" path="res://Handlers/BoardHandler.cs" id="1_rhjrh"]
+[ext_resource type="Script" uid="uid://ddp1fa6v2k426" path="res://Handlers/BoardHandler.cs" id="1_rhjrh"]
 
 [node name="Chessboard" type="Node2D"]
 script = ExtResource("1_rhjrh")
