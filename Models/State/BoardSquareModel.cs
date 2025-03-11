@@ -31,7 +31,7 @@ public class BoardSquareModel : INodeModel
 
     public void UpdateNode(bool create = false)
     {
-        if (create || Instance is null) Instance = (BoardSquare)_nodeFactory.CreateNoteForModel(this);
+        if (create || Instance is null) Instance = (BoardSquare)_nodeFactory.CreateNodeForModel(this);
 
         Instance.GridPosition = GridPosition;
         Instance.SquareColor = SquareColor;

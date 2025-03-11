@@ -47,7 +47,7 @@ public partial class BoardHandler : Node2D, INodeFactory, IBoardHandler
 		return boardSquares;
 	}
 
-	public Node2D CreateNoteForModel(INodeModel model)
+	public Node2D CreateNodeForModel(INodeModel model)
 	{
 		if (model is not BoardSquareModel boardSquareModel)
 		{

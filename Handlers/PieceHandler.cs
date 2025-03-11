@@ -10,7 +10,7 @@ public partial class PieceHandler : Node2D, INodeFactory, IPieceHandler
     [Inject] private IGameStateHandler _gameStateHandler;
     private PackedScene _pieceScene;
 
-    public Node2D CreateNoteForModel(INodeModel model)
+    public Node2D CreateNodeForModel(INodeModel model)
     {
         if (model is not PieceModel pieceModel)
         {

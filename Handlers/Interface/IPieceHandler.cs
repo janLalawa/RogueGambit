@@ -5,7 +5,7 @@ namespace RogueGambit.Handlers.Interface;
 
 public interface IPieceHandler
 {
-    Node2D CreateNoteForModel(INodeModel model);
+    Node2D CreateNodeForModel(INodeModel model);
     void LoadScenes();
 
     static Dictionary<Vector2, PieceModel> CreatePieceModelsDefault()

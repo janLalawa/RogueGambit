@@ -5,23 +5,23 @@ namespace RogueGambit.Handlers;
 
 public class SaveHandler : ISaveHandler
 {
-    private SaveState _saveState;
+	private SaveState _saveState;
 
-    public void SaveCurrentGameState(GameState gameState)
-    {
-        _saveState = new SaveState();
-    }
+	public void SaveCurrentGameState(GameState gameState)
+	{
+		_saveState = new SaveState();
+	}
 
-    private SavedBoard SaveBoard(Dictionary<Vector2, BoardSquareModel> boardSquares, Vector2 boardShape, List<List<int>> boardMask)
-    {
-        var savedBoard = new SavedBoard();
+	private SavedBoard SaveBoard(Dictionary<Vector2, BoardSquareModel> boardSquares, Vector2 boardShape, List<List<int>> boardMask)
+	{
+		var savedBoard = new SavedBoard();
 
-        savedBoard.BoardShape = new SavedVector
-        {
-            X = (int)boardShape.X,
-            Y = (int)boardShape.Y
-        };
+		savedBoard.BoardShape = new SavedVector
+		{
+			X = (int)boardShape.X,
+			Y = (int)boardShape.Y
+		};
 
-        return savedBoard; // TODO: Implement this method
-    }
+		return savedBoard; // TODO: Implement this method
+	}
 }

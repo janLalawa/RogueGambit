@@ -39,7 +39,7 @@ public class PieceModel : INodeModel
 
     public void UpdateNode(bool create = false)
     {
-        if (create || Instance is null) Instance = (Piece)_nodeFactory.CreateNoteForModel(this);
+        if (create || Instance is null) Instance = (Piece)_nodeFactory.CreateNodeForModel(this);
 
         Instance.GridPosition = GridPosition;
         Instance.PieceType = Type;
