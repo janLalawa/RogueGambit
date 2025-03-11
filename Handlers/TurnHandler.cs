@@ -4,7 +4,7 @@ namespace RogueGambit.Handlers;
 
 public partial class TurnHandler : Node2D, ITurnHandler
 {
-    [Inject] private IGameStateHandler _gameStateHandler;
+    [Inject] private readonly IGameStateHandler _gameStateHandler = null!;
     private Sprite2D _turnSprite;
     private Dictionary<PieceOwner, string> TextureMap { get; set; }
 

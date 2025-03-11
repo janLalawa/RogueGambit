@@ -4,7 +4,7 @@ namespace RogueGambit.Handlers;
 
 public partial class MoveHandler : Node2D, IMoveHandler
 {
-    [Inject] private IGameStateHandler _gameStateHandler;
+    [Inject] private readonly IGameStateHandler _gameStateHandler = null!;
     public PieceModel SelectedPiece { get; private set; }
 
     public void SelectPiece(PieceModel piece)

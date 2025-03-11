@@ -4,7 +4,7 @@ namespace RogueGambit.Logic;
 
 public class MoveLogic : IMoveLogic
 {
-    [Inject] private IGameStateHandler _gameStateHandler;
+    [Inject] private readonly IGameStateHandler _gameStateHandler = null!;
 
     private bool HitTarget { get; set; }
 

@@ -5,12 +5,12 @@ namespace RogueGambit.Handlers;
 
 public partial class GameStateHandler : Node, IGameStateHandler
 {
-    [Inject] private IBoardHandler _boardHandler;
-    [Inject] private IInputHandler _inputHandler;
-    [Inject] private IMoveHandler _moveHandler;
-    [Inject] private IMoveLogic _moveLogic;
-    [Inject] private IPieceHandler _pieceHandler;
-    [Inject] private ITurnHandler _turnHandler;
+    [Inject] private readonly IBoardHandler _boardHandler = null!;
+    [Inject] private readonly IInputHandler _inputHandler = null!;
+    [Inject] private readonly IMoveHandler _moveHandler = null!;
+    [Inject] private readonly IMoveLogic _moveLogic = null!;
+    [Inject] private readonly IPieceHandler _pieceHandler = null!;
+    [Inject] private readonly ITurnHandler _turnHandler = null!;
 
     public PlayerStatus PlayerStatus
     {

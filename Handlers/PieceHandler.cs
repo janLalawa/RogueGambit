@@ -7,7 +7,7 @@ namespace RogueGambit.Handlers;
 
 public partial class PieceHandler : Node2D, INodeFactory, IPieceHandler
 {
-    [Inject] private IGameStateHandler _gameStateHandler;
+    [Inject] private readonly IGameStateHandler _gameStateHandler = null!;
     private PackedScene _pieceScene;
 
     public Node2D CreateNodeForModel(INodeModel model)
@@ -50,8 +50,7 @@ public partial class PieceHandler : Node2D, INodeFactory, IPieceHandler
         for (var x = 0; x < BoardSize; x++)
         {
             pieceDictionary.Add(new Vector2(x, 1), new PieceModel(new Vector2(x, 1), PieceColor.Black, PieceType.Pawn));
-            pieceDictionary.Add(new Vector2(x, 6),
-                                new PieceModel(new Vector2(x, 6), PieceColor.White, PieceType.Pawn, 180));
+            pieceDictionary.Add(new Vector2(x, 6), new PieceModel(new Vector2(x, 6), PieceColor.White, PieceType.Pawn, 180));
         }
 
         pieceDictionary.Add(new Vector2(0, 0), new PieceModel(new Vector2(0, 0), PieceColor.Black, PieceType.Rook));

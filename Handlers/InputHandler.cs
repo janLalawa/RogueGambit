@@ -6,10 +6,10 @@ namespace RogueGambit.Handlers;
 
 public partial class InputHandler : Node2D, IInputHandler
 {
-    [Inject] private IBoardHandler _boardHandler;
-    [Inject] private IGameStateHandler _gameStateHandler;
-    [Inject] private IMoveHandler _moveHandler;
-    [Inject] private IPieceHandler _pieceHandler;
+    [Inject] private readonly IBoardHandler _boardHandler = null!;
+    [Inject] private readonly IGameStateHandler _gameStateHandler = null!;
+    [Inject] private readonly IMoveHandler _moveHandler = null!;
+    [Inject] private readonly IPieceHandler _pieceHandler = null!;
     public Vector2 MousePosition { get; private set; }
     public ClickMode ClickMode { get; set; } = ClickMode.PieceOnly;
 
