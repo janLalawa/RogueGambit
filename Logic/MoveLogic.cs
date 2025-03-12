@@ -17,11 +17,8 @@ public class MoveLogic : IMoveLogic
     public HashSet<Vector2> GetValidMoves(PieceModel piece)
     {
         var validMoves = new HashSet<Vector2>();
-
         validMoves.UnionWith(GetNormalMoves(piece));
-
         if (piece.MoveSet.HasChainedMoves) validMoves.UnionWith(GetChainedMoves(piece));
-
         foreach (var validMove in validMoves) GD.Print(validMove);
 
         return validMoves;
@@ -34,6 +31,8 @@ public class MoveLogic : IMoveLogic
 
         foreach (var move in normalMoves)
         {
+            if (move.Attributes.Contains(MoveAttrib.FirstMove) && piece.HasMoved) continue;
+
             var direction = RotateVector(move.Direction, piece.Rotation);
             var validRay = CastRay(piece.GridPosition, direction, move.Range, move.Attributes);
             validMoves.UnionWith(validRay);

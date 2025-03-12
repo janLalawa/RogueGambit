@@ -10,6 +10,7 @@ public partial class GameStateHandler : Node, IGameStateHandler
     [Inject] private readonly IMoveHandler _moveHandler = null!;
     [Inject] private readonly IMoveLogic _moveLogic = null!;
     [Inject] private readonly IPieceHandler _pieceHandler = null!;
+    [Inject] private readonly ISaveHandler _saveHandler = null!;
     [Inject] private readonly ITurnHandler _turnHandler = null!;
 
     public PlayerStatus PlayerStatus
@@ -127,6 +128,7 @@ public partial class GameStateHandler : Node, IGameStateHandler
     public void AdvanceTurn()
     {
         _turnHandler.AdvanceTurn();
+        GameState.TurnNumber++;
     }
 
     public void DeselectPiece()

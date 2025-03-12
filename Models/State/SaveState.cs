@@ -40,7 +40,7 @@ namespace QuickType
         public List<SavedGraveyard> Graveyard { get; set; }
 
         [JsonPropertyName("Board")]
-        public SavedBoard SavedBoard { get; set; }
+        public SavedBoard Board { get; set; }
 
         [JsonPropertyName("Players")]
         public List<SavedPlayer> Players { get; set; }

@@ -4,6 +4,7 @@ global using RogueGambit.Models.State;
 global using RogueGambit.Models;
 global using System.Collections.Generic;
 global using System.Linq;
+global using System;
 global using RogueGambit.Logic.Interfaces;
 global using static RogueGambit.Static.Constants.GameConstants.PlayerStatus;
 global using static RogueGambit.Static.Constants.PieceConstants;

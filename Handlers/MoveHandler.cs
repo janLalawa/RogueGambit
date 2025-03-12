@@ -46,6 +46,7 @@ public partial class MoveHandler : Node2D, IMoveHandler
         gameState.Pieces.Remove(piece.GridPosition);
         gameState.Pieces.Add(targetPosition, piece);
         piece.GridPosition = targetPosition;
+        piece.HasMoved = true;
     }
 
     public override void _Ready()

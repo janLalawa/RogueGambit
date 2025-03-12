@@ -20,6 +20,8 @@ public class GameState
     public List<List<int>> BoardMask { get; set; }
     public PieceOwner CurrentTurn { get; set; }
     public PlayerStatus PlayerStatus { get; set; }
+    public List<PlayerModel> Players { get; set; }
+    public int TurnNumber { get; set; } = 1;
 
     public void ReadGameStateFromNodes(BoardHandler boardHandler, PieceHandler pieceHandler)
     {

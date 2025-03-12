@@ -36,6 +36,8 @@ public class PieceModel : INodeModel
     public int Def { get; set; } = 1;
     public MoveSet MoveSet { get; set; }
     public int Rotation { get; set; }
+    public Vector2 StartPosition { get; set; }
+    public bool HasMoved { get; set; }
 
     public void UpdateNode(bool create = false)
     {
