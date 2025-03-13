@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c876jv2123cgc"]
+[gd_scene load_steps=10 format=3 uid="uid://c876jv2123cgc"]
 
 [ext_resource type="PackedScene" uid="uid://dmhfw5g8hdm0r" path="res://Scenes/ChessBoard.tscn" id="1_f15xr"]
 [ext_resource type="Script" uid="uid://bl7ufkxcqndp8" path="res://Scenes/MainScene.cs" id="1_uaaf5"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cl0fw8kr3raas" path="res://Handlers/GameStateHandler.cs" id="4_6x7k6"]
 [ext_resource type="Script" uid="uid://bwhvn5t5y62lp" path="res://Handlers/MoveHandler.cs" id="4_7i4mk"]
 [ext_resource type="Texture2D" uid="uid://h0vrb4skn4kr" path="res://Assets/UI/turn-white.png" id="4_78mpp"]
+[ext_resource type="Script" uid="uid://b7l0o0elitlsf" path="res://Debug/DebugConsole.cs" id="9_0iob3"]
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_uaaf5")
@@ -33,3 +34,6 @@ texture = ExtResource("4_78mpp")
 
 [node name="GameStateHandler" type="Node" parent="."]
 script = ExtResource("4_6x7k6")
+
+[node name="DebugConsole" type="CanvasLayer" parent="."]
+script = ExtResource("9_0iob3")

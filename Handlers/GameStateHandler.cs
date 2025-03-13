@@ -1,4 +1,3 @@
-using System;
 using RogueGambit.Handlers.Interface;
 
 namespace RogueGambit.Handlers;
@@ -6,6 +5,7 @@ namespace RogueGambit.Handlers;
 public partial class GameStateHandler : Node, IGameStateHandler
 {
     [Inject] private readonly IBoardHandler _boardHandler = null!;
+    [Inject] private readonly IDebugConsole _debugConsole = null!;
     [Inject] private readonly IInputHandler _inputHandler = null!;
     [Inject] private readonly IMoveHandler _moveHandler = null!;
     [Inject] private readonly IMoveLogic _moveLogic = null!;
@@ -18,7 +18,6 @@ public partial class GameStateHandler : Node, IGameStateHandler
         get => GameState.PlayerStatus;
         set => GameState.PlayerStatus = value;
     }
-
 
     public GameState GameState { get; set; }
 
@@ -122,6 +121,8 @@ public partial class GameStateHandler : Node, IGameStateHandler
 
         UpdateGameState();
         SetTurn(PieceOwner.Player);
+
+        RegisterCommands();
     }
 
 
@@ -135,5 +136,14 @@ public partial class GameStateHandler : Node, IGameStateHandler
     {
         _moveHandler.DeselectPiece();
         foreach (var square in GameState.BoardSquares.Values) square.Instance.TargetSprite.Visible = false;
+    }
+
+    private void RegisterCommands()
+    {
+        _debugConsole.RegisterCommand("savegame", args =>
+        {
+            _saveHandler.GameState = GameState;
+            return _saveHandler.SaveGame(args);
+        });
     }
 }

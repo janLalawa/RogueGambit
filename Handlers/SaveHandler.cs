@@ -1,12 +1,14 @@
 using System.IO;
 using QuickType;
 using RogueGambit.Handlers.Interface;
+using FileAccess = Godot.FileAccess;
 
 namespace RogueGambit.Handlers;
 
 public class SaveHandler : ISaveHandler
 {
     private SaveState _saveState;
+    public GameState GameState { get; set; }
 
     public bool SaveCurrentGameState(GameState gameState)
     {
@@ -34,12 +36,24 @@ public class SaveHandler : ISaveHandler
         return true;
     }
 
-    public bool SaveGameToFile(string filePath = "../Data/SaveData.json")
+    public bool SaveGameToFile(string filePath = "user://SaveData.json")
     {
         try
         {
             var json = _saveState.ToJson();
-            File.WriteAllText(filePath, json);
+
+            var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Write);
+            if (file == null)
+            {
+                var error = FileAccess.GetOpenError();
+                GD.PrintErr($"Could not open file for writing: {error}");
+                return false;
+            }
+
+            file.StoreString(json);
+            file.Close();
+
+            GD.Print($"Successfully saved game to {filePath}");
         }
         catch (Exception e)
         {
@@ -51,7 +65,29 @@ public class SaveHandler : ISaveHandler
     }
 
 
-    private SavedBoard SaveBoard(Dictionary<Vector2, BoardSquareModel> boardSquares, Vector2 boardShape, List<List<int>> boardMask)
+    public string SaveGame(string[] args)
+    {
+        var filePath = "user://SaveData.json"; // Default
+
+        if (args.Length > 0) filePath = args[0];
+
+        var stateSaved = SaveCurrentGameState(GameState);
+        if (!stateSaved) return "Failed to save game state.";
+
+        var actualPath = filePath;
+        if (filePath.StartsWith("user://"))
+        {
+            var userDir = OS.GetUserDataDir();
+            var relativePath = filePath.Substring(7); // Remove "user://"
+            actualPath = Path.Combine(userDir, relativePath);
+        }
+
+        var fileSaved = SaveGameToFile(filePath);
+        return fileSaved ? $"Game successfully saved to {actualPath}" : $"Failed to save game to {actualPath}";
+    }
+
+
+    private static SavedBoard SaveBoard(Dictionary<Vector2, BoardSquareModel> boardSquares, Vector2 boardShape, List<List<int>> boardMask)
     {
         var savedBoard = new SavedBoard();
 
@@ -61,6 +97,7 @@ public class SaveHandler : ISaveHandler
             Y = (int)boardShape.Y
         };
 
+        if (boardMask == null) return savedBoard;
         savedBoard.MaskedSquares = new List<SavedVector>();
         for (var y = 0; y < boardMask.Count; y++)
         for (var x = 0; x < boardMask[y].Count; x++)
@@ -74,12 +111,12 @@ public class SaveHandler : ISaveHandler
         return savedBoard;
     }
 
-    private List<SavedPiece> SavePieces(Dictionary<Vector2, PieceModel> pieces)
+    private static List<SavedPiece> SavePieces(Dictionary<Vector2, PieceModel> pieces)
     {
         return pieces.Values.Select(BuildSavePiece).ToList();
     }
 
-    private List<SavedGraveyard> SaveGraveyards(List<PieceModel> graveyard)
+    private static List<SavedGraveyard> SaveGraveyards(List<PieceModel> graveyard)
     {
         var savedGraveyards = new List<SavedGraveyard>();
         var savedGraveyard = new SavedGraveyard
@@ -134,8 +171,10 @@ public class SaveHandler : ISaveHandler
         return savedPiece;
     }
 
-    private List<SavedPlayer> SavePlayers(List<PlayerModel> players)
+    private static List<SavedPlayer> SavePlayers(List<PlayerModel> players)
     {
+        if (players == null) return new List<SavedPlayer>();
+
         return players.Select(player => new SavedPlayer
         {
             Name = player.Name,

@@ -5,7 +5,10 @@
         <RootNamespace>RogueGambit</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
-        <Content Include="Data\default_movesets.json" />
-        <Content Include="Data\sample_level.json" />
+        <Content Include="Data\default_movesets.json"/>
+        <Content Include="Data\sample_level.json"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Debug\"/>
     </ItemGroup>
 </Project>

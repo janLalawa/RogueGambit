@@ -14,3 +14,4 @@ global using static RogueGambit.Static.Constants.FenMap;
 global using static RogueGambit.Static.Constants.GameConstants;
 global using static RogueGambit.DependencyInjector;
 global using static RogueGambit.ServiceLocator;
+global using RogueGambit.Debug;
