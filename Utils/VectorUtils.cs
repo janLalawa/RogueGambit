@@ -1,3 +1,5 @@
+using QuickType;
+
 namespace RogueGambit.Utils;
 
 public static class VectorUtils
@@ -41,5 +43,16 @@ public static class VectorUtils
         }
 
         return boardMask;
+    }
+
+    public static HashSet<Vector2> CreateFromSavedVectors(List<SavedVector> savedVectors)
+    {
+        if (savedVectors is null) return null;
+
+        var vectors = new HashSet<Vector2>();
+        foreach (var savedVector in savedVectors)
+            vectors.Add(new Vector2(savedVector.X, savedVector.Y));
+
+        return vectors;
     }
 }

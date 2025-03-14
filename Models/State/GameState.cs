@@ -51,6 +51,47 @@ public class GameState
         foreach (var piece in Pieces.Values) piece.UpdateNode();
     }
 
+    public void RemoveAll(bool instant = false, bool pieces = true, bool board = true, bool graveyard = true, bool players = true)
+    {
+        if (pieces)
+        {
+            foreach (var piece in Pieces.Values) piece.DestroyNode(instant);
+            Pieces.Clear();
+        }
+
+        if (board)
+        {
+            foreach (var square in BoardSquares.Values) square.DestroyNode(instant);
+            BoardSquares.Clear();
+            BoardShape = Vector2.Zero;
+            BoardMask = null;
+        }
+
+        if (graveyard) Graveyard.Clear();
+
+        if (players)
+        {
+            Players?.Clear();
+            CurrentTurn = PieceOwner.Player;
+        }
+
+        if (pieces && board)
+        {
+            PlayerStatus = SelectingPiece;
+            TurnNumber = 1;
+        }
+
+        if (pieces && board && graveyard && players)
+        {
+            BoardSquares = new Dictionary<Vector2, BoardSquareModel>();
+            Pieces = new Dictionary<Vector2, PieceModel>();
+            Graveyard = new List<PieceModel>();
+            Players = new List<PlayerModel>();
+            GD.Print("GameState reset.");
+        }
+    }
+
+
     public PieceModel GetPieceAtPosition(Vector2 position)
     {
         return Pieces.GetValueOrDefault(position);

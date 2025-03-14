@@ -1,4 +1,3 @@
-using System;
 using RogueGambit.Models.State.Interfaces;
 
 namespace RogueGambit.Handlers.Interface;
@@ -16,4 +15,12 @@ public interface IPieceHandler
     List<Piece> GetPieceNodes();
 
     void SetDefaultMoveSets();
+
+    void PlaceSinglePiece(Vector2 boardPosition,
+                          PieceType type,
+                          PieceColor color,
+                          PieceOwner owner = PieceOwner.Player,
+                          MoveSet moveSet = null,
+                          int rotation = 0,
+                          bool hasMoved = false);
 }

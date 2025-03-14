@@ -1,5 +1,4 @@
 using System.Runtime.CompilerServices;
-using RogueGambit.Debug;
 using RogueGambit.Handlers;
 using RogueGambit.Handlers.Interface;
 using RogueGambit.Logic;
@@ -9,31 +8,31 @@ using BoardHandler = RogueGambit.Handlers.BoardHandler;
 
 public partial class MainScene : Node2D
 {
-    public override void _Ready()
-    {
-        GD.Print("...MainScene ready.");
-    }
+	public override void _Ready()
+	{
+		GD.Print("...MainScene ready.");
+	}
 
-    public override void _EnterTree()
-    {
-        GD.Print("...MainScene entered tree.");
-        RegisterServices();
-    }
+	public override void _EnterTree()
+	{
+		GD.Print("...MainScene entered tree.");
+		RegisterServices();
+	}
 
-    private void RegisterServices()
-    {
-        RegisterService<IGameStateHandler>(GetNode<GameStateHandler>("/root/MainScene/GameStateHandler"));
-        RegisterService<IBoardHandler>(GetNode<BoardHandler>("/root/MainScene/BoardHandler"));
-        RegisterService<IInputHandler>(GetNode<InputHandler>("/root/MainScene/InputHandler"));
-        RegisterService<IMoveHandler>(GetNode<MoveHandler>("/root/MainScene/MoveHandler"));
-        RegisterService<IPieceHandler>(GetNode<PieceHandler>("/root/MainScene/PieceHandler"));
-        RegisterService<ITurnHandler>(GetNode<TurnHandler>("/root/MainScene/TurnHandler"));
-        RegisterService<IDebugConsole>(GetNode<DebugConsole>("/root/MainScene/DebugConsole"));
-        RegisterService<ISaveHandler>(new SaveHandler());
+	private void RegisterServices()
+	{
+		RegisterService<IGameStateHandler>(GetNode<GameStateHandler>("/root/MainScene/GameStateHandler"));
+		RegisterService<IBoardHandler>(GetNode<BoardHandler>("/root/MainScene/BoardHandler"));
+		RegisterService<IInputHandler>(GetNode<InputHandler>("/root/MainScene/InputHandler"));
+		RegisterService<IMoveHandler>(GetNode<MoveHandler>("/root/MainScene/MoveHandler"));
+		RegisterService<IPieceHandler>(GetNode<PieceHandler>("/root/MainScene/PieceHandler"));
+		RegisterService<ITurnHandler>(GetNode<TurnHandler>("/root/MainScene/TurnHandler"));
+		RegisterService<IDebugConsole>(GetNode<DebugConsole>("/root/MainScene/DebugConsole"));
+		RegisterService<ISaveHandler>(GetNode<SaveHandler>("/root/MainScene/SaveHandler"));
 
-        RegisterService<IMoveLogic>(new MoveLogic());
+		RegisterService<IMoveLogic>(new MoveLogic());
 
-        RegisterNodeFactory<BoardSquare>((BoardHandler)GetService<IBoardHandler>());
-        RegisterNodeFactory<Piece>((PieceHandler)GetService<IPieceHandler>());
-    }
+		RegisterNodeFactory<BoardSquare>((BoardHandler)GetService<IBoardHandler>());
+		RegisterNodeFactory<Piece>((PieceHandler)GetService<IPieceHandler>());
+	}
 }

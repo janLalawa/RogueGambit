@@ -1,4 +1,3 @@
-using System;
 using RogueGambit.Handlers.Factory;
 using RogueGambit.Models.State.Interfaces;
 using static RogueGambit.Utils.BuildMoveSets;
@@ -57,9 +56,12 @@ public class PieceModel : INodeModel
         Color = Instance.PieceColor;
     }
 
-    public void DestroyNode()
+    public void DestroyNode(bool instant = false)
     {
-        Instance?.QueueFree();
+        if (instant)
+            Instance?.Free();
+        else
+            Instance?.QueueFree();
     }
 
     public override string ToString()

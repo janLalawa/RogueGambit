@@ -23,5 +23,5 @@ public static class GameConstants
         InMenu
     }
 
-    public static bool FriendlyFire { get; set; } = true;
+    public static bool FriendlyFire { get; set; } = false;
 }

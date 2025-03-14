@@ -64,7 +64,6 @@ public partial class GameStateHandler : Node, IGameStateHandler
         _turnHandler.SetTurn(owner);
     }
 
-
     public void MovePiece(PieceModel piece, Vector2 targetPosition)
     {
         _moveHandler.MovePiece(piece, targetPosition);
@@ -97,6 +96,17 @@ public partial class GameStateHandler : Node, IGameStateHandler
         }
     }
 
+    public void PlacePiece(Vector2 gridPos,
+                           PieceType type,
+                           PieceColor color,
+                           PieceOwner owner,
+                           MoveSet moveSet,
+                           int rotation = 0,
+                           bool hasMoved = false)
+    {
+        _pieceHandler.PlaceSinglePiece(gridPos, type, color, owner, moveSet, rotation, hasMoved);
+    }
+
     public void PromotePiece(PieceModel piece, PieceType newType)
     {
         throw new NotImplementedException();
@@ -117,7 +127,7 @@ public partial class GameStateHandler : Node, IGameStateHandler
         _moveLogic.Initialize();
 
         AssignColorToOwner(PieceColor.White, PieceOwner.Player);
-        AssignColorToOwner(PieceColor.Black, PieceOwner.Player);
+        AssignColorToOwner(PieceColor.Black, PieceOwner.Ai);
 
         UpdateGameState();
         SetTurn(PieceOwner.Player);
@@ -140,10 +150,22 @@ public partial class GameStateHandler : Node, IGameStateHandler
 
     private void RegisterCommands()
     {
-        _debugConsole.RegisterCommand("savegame", args =>
+        _debugConsole.RegisterCommand("savegame", args => _saveHandler.SaveGame(args));
+
+        _debugConsole.RegisterCommand("loadgame", args => _saveHandler.LoadGame(args));
+
+        _debugConsole.RegisterCommand("clearall", args =>
         {
-            _saveHandler.GameState = GameState;
-            return _saveHandler.SaveGame(args);
+            GameState.RemoveAll();
+            UpdateGameState();
+            return "GameState cleared.";
+        });
+
+        _debugConsole.RegisterCommand("defaultboard", args =>
+        {
+            GameState.RemoveAll();
+            _Ready();
+            return "Default board placed.";
         });
     }
 }

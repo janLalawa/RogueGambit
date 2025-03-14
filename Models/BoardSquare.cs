@@ -33,7 +33,6 @@ public partial class BoardSquare : Node2D
 	public BoardSquareModel BoardSquareModel { get; set; }
 
 	[Export] public bool IsOccupied { get; set; }
-
 	[Export] public Sprite2D OverlaySprite { get; set; }
 	[Export] public Sprite2D TargetSprite { get; set; }
 

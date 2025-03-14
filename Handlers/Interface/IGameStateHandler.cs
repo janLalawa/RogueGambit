@@ -4,6 +4,7 @@ public interface IGameStateHandler
 {
     GameState GameState { get; set; }
     PlayerStatus PlayerStatus { get; set; }
+    void PlacePiece(Vector2 gridPos, PieceType type, PieceColor color, PieceOwner owner, MoveSet moveSet, int rotation = 0, bool hasMoved = false);
     void SelectPiece(PieceModel piece);
     void InitializeGameState();
     void LoadScenes();

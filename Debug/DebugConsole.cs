@@ -29,7 +29,7 @@ public partial class DebugConsole : CanvasLayer, IDebugConsole
         _inputField.TextSubmitted += ExecuteCommand;
         RegisterCommands();
 
-        GD.Print("Debug console initialized");
+        GD.Print("...Debug console ready");
     }
 
     private void CreateConsoleUi()
@@ -171,16 +171,14 @@ public partial class DebugConsole : CanvasLayer, IDebugConsole
 
     public override void _Input(InputEvent @event)
     {
-        // Toggle console with tilde/backtick key
         if (@event is InputEventKey eventKey && eventKey.Pressed && !eventKey.Echo)
         {
-            if (eventKey.Keycode == Key.Quoteleft) // Tilde/backtick key
+            if (eventKey.Keycode == Key.Quoteleft)
             {
                 ToggleConsole();
                 GetViewport().SetInputAsHandled();
             }
 
-            // Command history navigation when console is visible
             if (_isVisible)
             {
                 if (eventKey.Keycode == Key.Up)
@@ -195,7 +193,7 @@ public partial class DebugConsole : CanvasLayer, IDebugConsole
                 }
                 else if (eventKey.Keycode == Key.Escape)
                 {
-                    ToggleConsole(); // Close console with Escape key
+                    ToggleConsole();
                     GetViewport().SetInputAsHandled();
                 }
             }
@@ -323,7 +321,6 @@ public partial class DebugConsole : CanvasLayer, IDebugConsole
         _commands["debug_view"] = args =>
         {
             var enable = args.Length == 0 || args[0].ToLower() == "on" || args[0] == "1";
-            // Call your debug visualization toggle here
             return $"Debug visualization {(enable ? "enabled" : "disabled")}";
         };
 
@@ -332,6 +329,27 @@ public partial class DebugConsole : CanvasLayer, IDebugConsole
         {
             GD.Print("Ran the toast command");
             return "Toasty!";
+        };
+
+        // Friendly Fire
+        _commands["friendly_fire"] = args =>
+        {
+            if (args.Length == 0)
+                return $"Friendly fire is currently {(FriendlyFire ? "enabled" : "disabled")}. Use 'friendly_fire on/off' to change.";
+
+            if (args[0].ToLower() == "on" || args[0] == "1")
+            {
+                FriendlyFire = true;
+                return "Friendly fire enabled!";
+            }
+
+            if (args[0].ToLower() == "off" || args[0] == "0")
+            {
+                FriendlyFire = false;
+                return "Friendly fire disabled!";
+            }
+
+            return "Usage: friendly_fire [on|off|1|0]";
         };
     }
 }

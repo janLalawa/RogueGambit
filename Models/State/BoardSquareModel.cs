@@ -48,8 +48,11 @@ public class BoardSquareModel : INodeModel
         IsOccupied = Instance.IsOccupied;
     }
 
-    public void DestroyNode()
+    public void DestroyNode(bool instant = false)
     {
-        Instance?.QueueFree();
+        if (instant)
+            Instance?.Free();
+        else
+            Instance?.QueueFree();
     }
 }

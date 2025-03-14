@@ -90,6 +90,26 @@ public partial class PieceHandler : Node2D, INodeFactory, IPieceHandler
         foreach (var pieceModel in _gameStateHandler.GameState.Pieces.Values) pieceModel.SetDefaultMoveSet();
     }
 
+    public void PlaceSinglePiece(Vector2 boardPosition,
+                                 PieceType type,
+                                 PieceColor color,
+                                 PieceOwner owner = PieceOwner.Player,
+                                 MoveSet moveSet = null,
+                                 int rotation = 0,
+                                 bool hasMoved = false)
+    {
+        _gameStateHandler.GameState.Pieces ??= new Dictionary<Vector2, PieceModel>();
+
+        if (_gameStateHandler.GameState.Pieces.ContainsKey(boardPosition)) return;
+
+        var pieceModel = new PieceModel(boardPosition, color, type, rotation);
+        pieceModel.Owner = owner;
+        pieceModel.SetMoveSet(moveSet);
+        pieceModel.HasMoved = hasMoved;
+        _gameStateHandler.GameState.Pieces.Add(boardPosition, pieceModel);
+        pieceModel.UpdateNode(true);
+    }
+
     public override void _Ready()
     {
         GD.Print("...PieceHandler ready.");

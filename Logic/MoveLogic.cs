@@ -34,7 +34,7 @@ public class MoveLogic : IMoveLogic
             if (move.Attributes.Contains(MoveAttrib.FirstMove) && piece.HasMoved) continue;
 
             var direction = RotateVector(move.Direction, piece.Rotation);
-            var validRay = CastRay(piece.GridPosition, direction, move.Range, move.Attributes);
+            var validRay = CastRay(piece.GridPosition, direction, move.Range, move.Attributes, piece.Owner);
             validMoves.UnionWith(validRay);
         }
 
@@ -57,7 +57,7 @@ public class MoveLogic : IMoveLogic
                 if (HitTarget) break;
 
                 var direction = RotateVector(move.Direction, piece.Rotation);
-                var validRay = CastRay(currentOrigin, direction, move.Range, move.Attributes);
+                var validRay = CastRay(currentOrigin, direction, move.Range, move.Attributes, piece.Owner);
 
                 if (validRay.Count > 0)
                 {
@@ -114,7 +114,11 @@ public class MoveLogic : IMoveLogic
         );
     }
 
-    private List<Vector2> CastRay(Vector2 origin, Vector2 direction, int distance, HashSet<MoveAttrib> attributes = null)
+    private List<Vector2> CastRay(Vector2 origin,
+                                  Vector2 direction,
+                                  int distance,
+                                  HashSet<MoveAttrib> attributes = null,
+                                  PieceOwner owner = PieceOwner.None)
     {
         var pieces = _gameStateHandler.GameState.Pieces;
         var board = _gameStateHandler.GameState.BoardSquares;
@@ -133,7 +137,7 @@ public class MoveLogic : IMoveLogic
 
             if (pieces.ContainsKey(rayPos))
             {
-                if (FriendlyFire || pieces[rayPos].Owner != pieces[origin].Owner)
+                if (FriendlyFire || pieces[rayPos].Owner != owner)
                     if (!isMoveOnly)
                     {
                         validMoves.Add(rayPos); // Found an enemy or friendly (with friendly fire), move is valid
