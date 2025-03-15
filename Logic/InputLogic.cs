@@ -4,13 +4,11 @@ public static class InputLogic
 {
     public static bool IsMyTurn(GameState gameState, PieceOwner player)
     {
-        return true;
         return gameState.CurrentTurn == player;
     }
 
     public static bool IsMyPiece(PieceModel piece, PieceOwner player)
     {
-        return true;
         return piece.Owner == player;
     }
 
@@ -22,8 +20,7 @@ public static class InputLogic
     public static bool IsAttackMove(BoardSquareModel targetSquare, PieceModel selectedPiece, GameState gameState)
     {
         var isOccupied = targetSquare?.IsOccupied ?? false;
-        var isMyself = targetSquare != null && gameState.GetPieceAtPosition(targetSquare.GridPosition).GridPosition ==
-            selectedPiece.GridPosition;
+        var isMyself = targetSquare != null && gameState.GetPieceAtPosition(targetSquare.GridPosition).GridPosition == selectedPiece.GridPosition;
 
         return isOccupied && !isMyself;
     }
@@ -36,8 +33,7 @@ public static class InputLogic
 
     public static bool IsMoveValid(PieceModel piece, Vector2 targetPosition)
     {
-        return true;
-        // return piece.ValidMoves.Contains(targetPosition);
+        return piece.ValidMoves.Contains(targetPosition);
     }
 
 

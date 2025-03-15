@@ -16,4 +16,5 @@ public interface IGameStateHandler
     void ToggleSelectedPiece(PieceModel piece);
     void MovePiece(PieceModel piece, Vector2 targetPosition);
     void CapturePiece(PieceModel attacker, PieceModel targetPiece);
+    void DeselectPiece();
 }

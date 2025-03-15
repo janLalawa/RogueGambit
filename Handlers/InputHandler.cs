@@ -45,8 +45,28 @@ public partial class InputHandler : Node2D, IInputHandler
 
     public override void _Input(InputEvent @event)
     {
-        if (@event is not InputEventMouseMotion mouseMotion) return;
-        MousePosition = mouseMotion.Position;
+        switch (@event)
+        {
+            case InputEventMouseMotion mouseMotion:
+                MousePosition = mouseMotion.Position;
+                break;
+            case InputEventKey { Pressed: true, Keycode: Key.Escape }:
+                HandleEscapeKeyPress();
+                break;
+        }
+    }
+
+    private void HandleEscapeKeyPress()
+    {
+        if (_gameStateHandler.PlayerStatus == SelectingPiece)
+        {
+            GetTree().Quit();
+        }
+        else
+        {
+            _gameStateHandler.DeselectPiece();
+            _gameStateHandler.PlayerStatus = SelectingPiece;
+        }
     }
 
     // Pieces
@@ -81,6 +101,12 @@ public partial class InputHandler : Node2D, IInputHandler
         if (ClickMode is ClickMode.None or ClickMode.UiOnly or ClickMode.PieceOnly) return;
 
 
+        if (!InputLogic.IsMoveValid(_moveHandler.SelectedPiece, clickedSquare.GridPosition))
+        {
+            GetViewport().SetInputAsHandled();
+            return;
+        }
+
         if (InputLogic.IsNormalMove(clickedSquare.BoardSquareModel))
         {
             _gameStateHandler.MovePiece(_moveHandler.SelectedPiece, clickedSquare.GridPosition);
@@ -92,8 +118,7 @@ public partial class InputHandler : Node2D, IInputHandler
         if (InputLogic.IsAttackMove(clickedSquare.BoardSquareModel, _moveHandler.SelectedPiece,
                                     _gameStateHandler.GameState))
         {
-            _gameStateHandler.CapturePiece(_moveHandler.SelectedPiece,
-                                           _gameStateHandler.GameState.GetPieceAtPosition(clickedSquare.GridPosition));
+            _gameStateHandler.CapturePiece(_moveHandler.SelectedPiece, _gameStateHandler.GameState.GetPieceAtPosition(clickedSquare.GridPosition));
             _gameStateHandler.PlayerStatus = SelectingPiece;
         }
 

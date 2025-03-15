@@ -1,5 +1,6 @@
 using RogueGambit.Handlers.Factory;
 using RogueGambit.Models.State.Interfaces;
+using RogueGambit.Utils;
 using static RogueGambit.Utils.BuildMoveSets;
 
 namespace RogueGambit.Models.State;
@@ -29,6 +30,8 @@ public class PieceModel : INodeModel
     public Vector2 GridPosition { get; set; }
     public PieceColor Color { get; set; }
     public PieceType Type { get; set; }
+    public char FenChar => GetFenChar();
+    public char FenOverwrite { get; set; }
     public Piece Instance { get; set; }
     public PieceOwner Owner { get; set; } = PieceOwner.None;
     public int Atk { get; set; } = 1;
@@ -37,6 +40,7 @@ public class PieceModel : INodeModel
     public int Rotation { get; set; }
     public Vector2 StartPosition { get; set; }
     public bool HasMoved { get; set; }
+    public HashSet<Vector2> ValidMoves { get; set; }
 
     public void UpdateNode(bool create = false)
     {
@@ -62,6 +66,11 @@ public class PieceModel : INodeModel
             Instance?.Free();
         else
             Instance?.QueueFree();
+    }
+
+    public char GetFenChar()
+    {
+        return FenOverwrite != default ? FenOverwrite : FenUtils.GetFenChar(Type, Color);
     }
 
     public override string ToString()

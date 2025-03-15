@@ -1,6 +1,5 @@
 using System.Runtime.CompilerServices;
 using RogueGambit.Handlers;
-using RogueGambit.Handlers.Interface;
 using RogueGambit.Logic;
 using BoardHandler = RogueGambit.Handlers.BoardHandler;
 
@@ -29,6 +28,7 @@ public partial class MainScene : Node2D
 		RegisterService<ITurnHandler>(GetNode<TurnHandler>("/root/MainScene/TurnHandler"));
 		RegisterService<IDebugConsole>(GetNode<DebugConsole>("/root/MainScene/DebugConsole"));
 		RegisterService<ISaveHandler>(GetNode<SaveHandler>("/root/MainScene/SaveHandler"));
+		RegisterService<IUciHandler>(GetNode<UciHandler>("/root/MainScene/UciHandler"));
 
 		RegisterService<IMoveLogic>(new MoveLogic());
 

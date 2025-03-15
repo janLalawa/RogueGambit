@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c876jv2123cgc"]
+[gd_scene load_steps=12 format=3 uid="uid://c876jv2123cgc"]
 
 [ext_resource type="PackedScene" uid="uid://dmhfw5g8hdm0r" path="res://Scenes/ChessBoard.tscn" id="1_f15xr"]
 [ext_resource type="Script" uid="uid://bl7ufkxcqndp8" path="res://Scenes/MainScene.cs" id="1_uaaf5"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://h0vrb4skn4kr" path="res://Assets/UI/turn-white.png" id="4_78mpp"]
 [ext_resource type="Script" uid="uid://c3j5mhspuj8h7" path="res://Handlers/SaveHandler.cs" id="8_4b75m"]
 [ext_resource type="Script" uid="uid://b7l0o0elitlsf" path="res://Debug/DebugConsole.cs" id="9_0iob3"]
+[ext_resource type="Script" uid="uid://dbbpm830k72yj" path="res://Handlers/UciHandler.cs" id="9_8ju71"]
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_uaaf5")
@@ -35,6 +36,9 @@ texture = ExtResource("4_78mpp")
 
 [node name="SaveHandler" type="Node2D" parent="."]
 script = ExtResource("8_4b75m")
+
+[node name="UciHandler" type="Node2D" parent="."]
+script = ExtResource("9_8ju71")
 
 [node name="GameStateHandler" type="Node" parent="."]
 script = ExtResource("4_6x7k6")

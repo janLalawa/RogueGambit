@@ -1,5 +1,3 @@
-using RogueGambit.Handlers.Interface;
-
 namespace RogueGambit.Handlers;
 
 public partial class GameStateHandler : Node, IGameStateHandler
@@ -88,8 +86,8 @@ public partial class GameStateHandler : Node, IGameStateHandler
     public void SelectPiece(PieceModel piece)
     {
         _moveHandler.SelectPiece(piece);
-        var validMoves = _moveLogic.GetValidMoves(piece);
-        foreach (var move in validMoves)
+        piece.ValidMoves = _moveLogic.GetValidMoves(piece);
+        foreach (var move in piece.ValidMoves)
         {
             var square = GameState.BoardSquares[move];
             square.Instance.TargetSprite.Visible = true;
@@ -105,6 +103,12 @@ public partial class GameStateHandler : Node, IGameStateHandler
                            bool hasMoved = false)
     {
         _pieceHandler.PlaceSinglePiece(gridPos, type, color, owner, moveSet, rotation, hasMoved);
+    }
+
+    public void DeselectPiece()
+    {
+        _moveHandler.DeselectPiece();
+        foreach (var square in GameState.BoardSquares.Values) square.Instance.TargetSprite.Visible = false;
     }
 
     public void PromotePiece(PieceModel piece, PieceType newType)
@@ -142,12 +146,6 @@ public partial class GameStateHandler : Node, IGameStateHandler
         GameState.TurnNumber++;
     }
 
-    public void DeselectPiece()
-    {
-        _moveHandler.DeselectPiece();
-        foreach (var square in GameState.BoardSquares.Values) square.Instance.TargetSprite.Visible = false;
-    }
-
     private void RegisterCommands()
     {
         _debugConsole.RegisterCommand("savegame", args => _saveHandler.SaveGame(args));
@@ -167,5 +165,7 @@ public partial class GameStateHandler : Node, IGameStateHandler
             _Ready();
             return "Default board placed.";
         });
+
+        _debugConsole.RegisterCommand("to_fen", args => GameState.ToFen());
     }
 }
