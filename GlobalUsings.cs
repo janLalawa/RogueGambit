@@ -15,3 +15,7 @@ global using static RogueGambit.DependencyInjector;
 global using static RogueGambit.ServiceLocator;
 global using RogueGambit.Debug;
 global using RogueGambit.Handlers.Interface;
+global using System.Threading.Tasks;
+global using System.Diagnostics;
+global using System.Threading;
+global using System.IO;

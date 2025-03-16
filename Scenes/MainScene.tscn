@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://h0vrb4skn4kr" path="res://Assets/UI/turn-white.png" id="4_78mpp"]
 [ext_resource type="Script" uid="uid://c3j5mhspuj8h7" path="res://Handlers/SaveHandler.cs" id="8_4b75m"]
 [ext_resource type="Script" uid="uid://b7l0o0elitlsf" path="res://Debug/DebugConsole.cs" id="9_0iob3"]
-[ext_resource type="Script" uid="uid://dbbpm830k72yj" path="res://Handlers/UciHandler.cs" id="9_8ju71"]
+[ext_resource type="Script" uid="uid://csojcdhhd5jcs" path="res://Engine/Uci/UciHandler.cs" id="9_8ju71"]
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_uaaf5")

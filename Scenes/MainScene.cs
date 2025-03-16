@@ -1,7 +1,9 @@
 using System.Runtime.CompilerServices;
+using RogueGambit.Engine.Uci;
 using RogueGambit.Handlers;
 using RogueGambit.Logic;
 using BoardHandler = RogueGambit.Handlers.BoardHandler;
+using UciHandler = RogueGambit.Engine.Uci.UciHandler;
 
 [assembly: InternalsVisibleTo("RogueGambit.Tests")]
 
