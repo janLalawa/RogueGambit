@@ -2,8 +2,8 @@ namespace RogueGambit.Engine.RogueAi;
 
 public interface IRogueAi
 {
-    Move GetBestMove(GameState gameState);
-    int EvaluatePosition(GameState gameState);
-    void SetSearchDepth(int depth);
-    void SetEvaluationWeights(Dictionary<PieceType, float> weights);
+    Task<Move> GetBestMove(GameState gameState);
+    Task<int> EvaluatePosition(GameState gameState);
+    Task SetSearchDepth(int depth);
+    Task SetEvaluationWeights(Dictionary<PieceType, float> weights);
 }

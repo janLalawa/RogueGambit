@@ -1,5 +1,3 @@
-using RogueGambit.Handlers.Interface;
-
 namespace RogueGambit.Logic;
 
 public class MoveLogic : IMoveLogic
@@ -19,7 +17,6 @@ public class MoveLogic : IMoveLogic
         var validMoves = new HashSet<Vector2>();
         validMoves.UnionWith(GetNormalMoves(piece));
         if (piece.MoveSet.HasChainedMoves) validMoves.UnionWith(GetChainedMoves(piece));
-        foreach (var validMove in validMoves) GD.Print(validMove);
 
         return validMoves;
     }

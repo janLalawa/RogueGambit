@@ -19,3 +19,4 @@ global using System.Threading.Tasks;
 global using System.Diagnostics;
 global using System.Threading;
 global using System.IO;
+global using RogueGambit.Engine.RogueAi;

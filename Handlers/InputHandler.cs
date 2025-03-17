@@ -1,4 +1,3 @@
-using RogueGambit.Handlers.Interface;
 using RogueGambit.Logic;
 using Piece = RogueGambit.Models.Piece;
 
@@ -115,8 +114,7 @@ public partial class InputHandler : Node2D, IInputHandler
             return;
         }
 
-        if (InputLogic.IsAttackMove(clickedSquare.BoardSquareModel, _moveHandler.SelectedPiece,
-                                    _gameStateHandler.GameState))
+        if (InputLogic.IsAttackMove(clickedSquare.BoardSquareModel, _moveHandler.SelectedPiece, _gameStateHandler.GameState))
         {
             _gameStateHandler.CapturePiece(_moveHandler.SelectedPiece, _gameStateHandler.GameState.GetPieceAtPosition(clickedSquare.GridPosition));
             _gameStateHandler.PlayerStatus = SelectingPiece;

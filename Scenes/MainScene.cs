@@ -31,6 +31,7 @@ public partial class MainScene : Node2D
 		RegisterService<IDebugConsole>(GetNode<DebugConsole>("/root/MainScene/DebugConsole"));
 		RegisterService<ISaveHandler>(GetNode<SaveHandler>("/root/MainScene/SaveHandler"));
 		RegisterService<IUciHandler>(GetNode<UciHandler>("/root/MainScene/UciHandler"));
+		RegisterService<IAiHandler>(GetNode<AiHandler>("/root/MainScene/AiHandler"));
 
 		RegisterService<IMoveLogic>(new MoveLogic());
 

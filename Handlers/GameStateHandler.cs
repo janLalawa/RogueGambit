@@ -2,6 +2,7 @@ namespace RogueGambit.Handlers;
 
 public partial class GameStateHandler : Node, IGameStateHandler
 {
+    [Inject] private readonly IAiHandler _aiHandler = null!;
     [Inject] private readonly IBoardHandler _boardHandler = null!;
     [Inject] private readonly IDebugConsole _debugConsole = null!;
     [Inject] private readonly IInputHandler _inputHandler = null!;
@@ -144,6 +145,18 @@ public partial class GameStateHandler : Node, IGameStateHandler
     {
         _turnHandler.AdvanceTurn();
         GameState.TurnNumber++;
+        MakeAiMove();
+    }
+
+    public void MakeAiMove()
+    {
+        if (GameState.CurrentTurn != PieceOwner.Ai) return;
+        var myMove = _aiHandler.Brain.GetBestMove(GameState).Result;
+        GD.Print(myMove);
+        if (myMove.IsCapture)
+            CapturePiece(myMove.Piece, GameState.GetPieceAtPosition(myMove.EndPosition));
+        else
+            MovePiece(myMove.Piece, myMove.EndPosition);
     }
 
     private void RegisterCommands()
